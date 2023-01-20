@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { addTodb } from '../../utilities/storoge';
+import { getStoredCard } from '../../utilities/fakedb';
+import { addTodb, removeDb } from '../../utilities/storoge';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
@@ -18,7 +19,13 @@ const Shop = () => {
                 setProducts(data))
     }, [])
 
-
+useEffect(()=>{
+    const storedCart = getStoredCard()
+    for(const id in storedCart){
+        const addedProduct = products.find(product => product.id === id)
+        console.log(addedProduct)
+    }
+},[])
 
     const handleAddToCart = (product) =>{
         const newCart = [...cart, product]
@@ -26,7 +33,10 @@ const Shop = () => {
         addTodb(product.id)
     
     }
-    
+
+    const removeFromDb = product =>{
+        removeDb(product.id)
+    }
 
     return (
         <div className='shop-container'>
@@ -37,6 +47,7 @@ const Shop = () => {
                              key={product.id}
                              product={product}
                              handleAddToCart = {handleAddToCart}
+                             removeFromDb = {removeFromDb}
                              ></Product>)
                     }
             </div>

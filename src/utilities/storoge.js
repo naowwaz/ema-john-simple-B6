@@ -11,34 +11,36 @@
 //         localStorage.setItem(id, 1)
 //     }
 //  } 
- 
+
 //                               organaize style
 
-const addTodb = id =>{
+const addTodb = id => {
     let shoppingCart;
 
     // get shoppingCart 
     const storeCard = localStorage.getItem('shopping-cart');
-    if(storeCard){
+    if (storeCard) {
         shoppingCart = JSON.parse(storeCard)
     }
-    else{
+    else {
         shoppingCart = {}
     }
 
 
     // add quantity 
     const quantity = shoppingCart[id]
-    if(quantity){
+    if (quantity) {
         const newQuantity = parseInt(quantity) + 1;
-            shoppingCart[id] = newQuantity;
+        shoppingCart[id] = newQuantity;
     }
-    else{
+    else {
         shoppingCart[id] = 1;
     }
-    
-    localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart) )
+
+    localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart))
 }
+
+
 
 
 //  2 
@@ -57,6 +59,22 @@ const addTodb = id =>{
 //     localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart))
 // }
 
+
+
+//                                  DATA REMOVE
+
+
+const removeDb = id => {
+    const storeCard = localStorage.getItem("shoppingCart")
+    if (storeCard) {
+        const shoppingCart = JSON.parse(storeCard)
+        if (id in shoppingCart) {
+            delete shoppingCart[id]
+            localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart))
+        }
+    }
+}
 export {
     addTodb,
+    removeDb
 }

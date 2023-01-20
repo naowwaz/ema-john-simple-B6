@@ -4,7 +4,7 @@ import React from 'react';
 
 import './products.css'
 const Product = (props) => {
-    const {product, handleAddToCart} = props;
+    const {product,removeFromDb, handleAddToCart} = props;
     const {name, img, seller, price, ratings} = props.product;
    
     return (
@@ -22,6 +22,7 @@ const Product = (props) => {
             {/* <FontAwesomeIcon icon={faCoffee}></FontAwesomeIcon> */}
             
           </button>
+          <button  onClick={() => removeFromDb(product) } className='remove-cart' >Remove from cart</button>
           
         </div>
     );
